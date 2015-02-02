@@ -17,8 +17,8 @@ def main_page(request):
             count = 0
             result = form.groups()
             for round in result:
-                if len(round) < len(result[0]):
-                    break
+                #if len(round) < len(result[0]):
+                #    break
                 count += 1
                 pretty_print = pretty_print + "Round: " + str(count) + "\r"
                 for group in round:
