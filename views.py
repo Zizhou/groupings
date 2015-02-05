@@ -5,6 +5,8 @@ from groupings import get_groups
 
 from groupings.models import SubmitForm
 
+import itertools
+
 # Create your views here.
 
 def main_page(request):
@@ -16,12 +18,12 @@ def main_page(request):
             pretty_print = ''
             count = 0
             result = form.groups()
-            for round in result:
+            for rounds in result:
                 #if len(round) < len(result[0]):
                 #    break
                 count += 1
                 pretty_print = pretty_print + "Round: " + str(count) + "\r"
-                for group in round:
+                for group in rounds:
                     pretty_print = pretty_print + str(group) + "\r"
                 pretty_print = pretty_print + "\r\r"
             context = {
@@ -35,3 +37,5 @@ def main_page(request):
             'form' : SubmitForm,
         }         
     return render(request, 'groupings/page.html', context)
+
+    

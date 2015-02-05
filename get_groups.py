@@ -28,8 +28,8 @@ class Person(object):
 
     def prior(self, person):
         if person in self.worked_with:
-            print unicode(person)
-            print self.get_work()
+            #print unicode(person)
+            #print self.get_work()
             return False
         else:
             self.worked_with.append(person)
@@ -54,35 +54,36 @@ def make_groups(total_size, group_size):
 def eliminate_repeats(groups):
     pairings = []
     delete = []
-    #random.shuffle(groups)
+    #shuffle for random groupings(will need for roulette method)
+    random.shuffle(groups)
     for circle in groups:
         valid = True
         these_pair = []
         for pair in itertools.combinations(circle, 2):
             if pair not in pairings:
                 these_pair.append(pair)
-                print "yes"+unicode(pair[0]) + unicode(pair[1])
+                #print "yes"+unicode(pair[0]) + unicode(pair[1])
             else:
-                print unicode(pair[0]) + unicode(pair[1])
+               #print unicode(pair[0]) + unicode(pair[1])
                 valid = False
         if not valid:
             delete.append(circle)
-            print "deleting:" + unicode(circle[0])+ unicode(circle[1])+ unicode(circle[2])
+           #print "deleting:" + unicode(circle[0])+ unicode(circle[1])+ unicode(circle[2])
         else:
             for pair in these_pair:
                 pairings.append(pair)
-            print "accept:" + unicode(circle[0])+ unicode(circle[1])+ unicode(circle[2])
-    print "delete"
-    print "deleting"
-    print groups
-    print delete
+            #print "accept:" + unicode(circle[0])+ unicode(circle[1])+ unicode(circle[2])
+    #print "delete"
+    #print "deleting"
+    #print groups
+    #print delete
     eliminated = list(set(groups).difference(delete))
  #   for circle in groups:
  #       print "judging:" + str(circle)
  #       if circle in delete:
  #           print map(unicode, circle)
  #           groups.remove(circle)
-    print eliminated
+    #print eliminated
     return eliminated
 
 def pick_groups(group_list):
