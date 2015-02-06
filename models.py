@@ -26,10 +26,10 @@ class SubmitForm(forms.Form):
                 max_m_temp = len([max_list for entry in processed_temp if len(entry) >= len(processed_temp[0])])
                 if max_m_temp > max_max:
                     max_max = max_m_temp
-                    print "more" + str(max_max)
-                    print processed_temp
+#                    print "more" + str(max_max)
+#                    print processed_temp
                     max_length = len(processed_temp[0])
                     processed = processed_temp
        
-        print max_length, max_max 
+#        print max_length, max_max 
         return processed

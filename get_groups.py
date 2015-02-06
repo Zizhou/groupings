@@ -1,5 +1,6 @@
 import itertools, random
-        
+
+#totally uneeded        
 class Person(object):
     def __init__(self, id_num):
         self.worked_with = []
@@ -34,24 +35,64 @@ class Person(object):
         else:
             self.worked_with.append(person)
             return True
-            
 
+#pair joining method            
 def make_groups(total_size, group_size):
     class_total = [0]*total_size
     for x in range(0, total_size):
         #class_total[x] = Person(x)
         class_total[x] = x
         
+    possible_pairs = []
     possible_groups = []
-        
-    for subset in itertools.combinations(class_total, group_size):
-        possible_groups.append(subset)#id_group)
 
-    no_repeats = eliminate_repeats(possible_groups)
+    #all possible combinations of nC2, from which we will construct groups
+    for subset in itertools.combinations(class_total, 2):
+        possible_pairs.append(subset)
+    while possible_pairs != []:
+#        print possible_pairs
+        current_group = [possible_pairs[0][0]]
+        for x in range(0, group_size - 1):
+            next_pair = []
+            for entry in possible_pairs:
+                print entry
+                print current_group[-1]
+                if entry[0] == current_group[-1]:
+                    next_pair.append(entry)
+            #[next_pair for entry in possible_pairs if entry[1] == current_group[-1]]
+
+            if next_pair != []:
+                current_group.append(next_pair[0][1])
+                print next_pair[0][1]
+        for pair in itertools.combinations(current_group, 2):
+            if pair in possible_pairs:
+                possible_pairs.remove(pair)
+        possible_groups.append(current_group)
+    return possible_groups
+
+#pruning method
+def imake_groups(total_size, group_size):
+    class_total = [0]*total_size
+    for x in range(0, total_size):
+        #class_total[x] = Person(x)
+        class_total[x] = x
+        
+    possible_groups = []
+    possible_pairs = []
+    #all possible combinations of n choose [group_size]    
+    for subset in itertools.combinations(class_total, group_size):
+        possible_groups.append(subset)
+    #all possible pairs
+    for subset in itertools.combinations(class_total, 2):
+        possible_pairs.append(subset)
+    #eliminate groups with repeat pairs
+    no_repeats = eliminate_repeats(possible_groups, possible_pairs)
 
     return no_repeats 
 
-def eliminate_repeats(groups):
+##list of groups in, list of groups out
+#needs work
+def ieliminate_repeats(groups):
     pairings = []
     delete = []
     #shuffle for random groupings(will need for roulette method)
@@ -85,6 +126,11 @@ def eliminate_repeats(groups):
  #           groups.remove(circle)
     #print eliminated
     return eliminated
+
+#pass through
+def ipick_groups(groups):
+    return groups
+
 
 def pick_groups(group_list):
     group_list.sort()
