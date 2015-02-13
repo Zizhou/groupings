@@ -1,6 +1,6 @@
 import itertools, random
 
-#totally uneeded        
+#totally uneedeed? 
 class Person(object):
     def __init__(self, id_num):
         self.worked_with = []
@@ -50,13 +50,20 @@ def make_groups(total_size, group_size):
     for subset in itertools.combinations(class_total, 2):
         possible_pairs.append(subset)
     while possible_pairs != []:
-#        print possible_pairs
-        current_group = [possible_pairs[0][0]]
+        print possible_pairs
+        print possible_groups
+        current_group = []
+        for pair in possible_pairs:
+            if pair[0] not in set(itertools.chain(*possible_groups)):
+                current_group = [pair[0]]
+                break
+        if current_group == []:
+            current_group = [possible_pairs[0][0]]
         for x in range(0, group_size - 1):
             next_pair = []
             for entry in possible_pairs:
-                print entry
-                print current_group[-1]
+                #print entry
+                #print current_group[-1]
                 if entry[0] == current_group[-1]:
                     next_pair.append(entry)
             #[next_pair for entry in possible_pairs if entry[1] == current_group[-1]]
